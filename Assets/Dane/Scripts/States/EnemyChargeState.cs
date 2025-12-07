@@ -1,6 +1,29 @@
 using UnityEngine;
 
-public class EnemyChargeState
+namespace DaneF
 {
-    
+    public class EnemyChargeState : States
+    {
+        public EnemyChargeState(StateMachine m) : base(m)
+        {
+            machine = m;
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            Debug.Log("Shockwave");
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+        }
+
+    }
 }

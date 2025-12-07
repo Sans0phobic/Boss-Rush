@@ -1491,8 +1491,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 472304, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 660113535}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 139696, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 837902978}
   m_SourcePrefab: {fileID: 100100000, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
+--- !u!1 &837902977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 139696, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
+  m_PrefabInstance: {fileID: 837902976}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &837902978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837902977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b064e2d4cf3b724abb419ec24ecbb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossHealth: 60
+  bossSpeed: 5
+  playerBody: {fileID: 3964861594565656508}
 --- !u!1001 &865517206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3316,6 +3339,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ca589b17b2fa29408d099352b8407c0, type: 3}
+--- !u!1 &3964861594565656508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 676161115664978796, guid: 0ca589b17b2fa29408d099352b8407c0, type: 3}
+  m_PrefabInstance: {fileID: 3964861594565656507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7618333120010288130
 PrefabInstance:
   m_ObjectHideFlags: 0
