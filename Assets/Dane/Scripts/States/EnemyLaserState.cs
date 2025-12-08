@@ -12,6 +12,8 @@ namespace DaneF
         public override void OnEnter()
         {
             base.OnEnter();
+            machine.enemy.AnimateLaser();
+            machine.enemy.bossRotationSpeed = 1.5f;
         }
 
         public override void OnUpdate()
@@ -22,7 +24,7 @@ namespace DaneF
             {
                 machine.ChangeState(new EnemyFireState(machine));
             }
-            if (elapsedTime > 2.38f)
+            if (elapsedTime > 2.9f)
             {
                 machine.ChangeState(new EnemyIdleState(machine));
             }
@@ -31,6 +33,7 @@ namespace DaneF
         public override void OnExit()
         {
             base.OnExit();
+            machine.enemy.bossRotationSpeed = machine.enemy.maxRotationSpeed;
         }
 
     }

@@ -12,6 +12,7 @@ namespace DaneF
         public override void OnEnter()
         {
             base.OnEnter();
+            machine.enemy.AnimateIdle();
         }
 
         public override void OnUpdate()
@@ -21,6 +22,7 @@ namespace DaneF
 
             if (elapsedTime >= (2.5f - machine.enemy.phase))
             {
+                //Boss should push the player back if they attack their leg for too long
                 if (machine.enemy.playerDistance <= 8.0f)
                 {
                     if (elapsedTime >= (5.0f - machine.enemy.phase))

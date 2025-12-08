@@ -12,6 +12,7 @@ namespace DaneF
         public override void OnEnter()
         {
             base.OnEnter();
+            machine.enemy.AnimateBite();
         }
 
         public override void OnUpdate()

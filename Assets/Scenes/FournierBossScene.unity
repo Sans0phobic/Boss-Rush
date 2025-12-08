@@ -1513,9 +1513,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b064e2d4cf3b724abb419ec24ecbb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossHealth: 60
-  bossSpeed: 5
   playerBody: {fileID: 3964861594565656508}
+  animator: {fileID: 837902979}
+  bossHealth: 60
+  bossMoveSpeed: 4
+  bossRotationSpeed: 5
+  countdown: 10
+  rng: 0
+--- !u!95 &837902979 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9586004, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
+  m_PrefabInstance: {fileID: 837902976}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &865517206
 PrefabInstance:
   m_ObjectHideFlags: 0
