@@ -19,6 +19,7 @@ namespace DaneF
         {
             base.OnUpdate();
             Debug.Log("Swipe State");
+            machine.enemy.lookAtPlayer();
             if (elapsedTime > 1.1f) 
             {
                 machine.ChangeState(new EnemyIdleState(machine));

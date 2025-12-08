@@ -13,6 +13,7 @@ namespace DaneF
         {
             base.OnEnter();
             machine.enemy.AnimateLaser();
+            machine.enemy.StartLaser();
             machine.enemy.bossRotationSpeed = 1.5f;
         }
 

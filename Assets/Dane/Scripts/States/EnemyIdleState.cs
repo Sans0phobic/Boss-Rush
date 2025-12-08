@@ -19,6 +19,11 @@ namespace DaneF
         {
             base.OnUpdate();
             Debug.Log("Idle State");
+            if (machine.enemy.playerDistance > 10.0f)
+                machine.enemy.lookAtPlayer();
+
+            if (machine.enemy.bossHealth <= 0)
+                machine.ChangeState(new EnemyDeathState(machine));
 
             if (elapsedTime >= (2.5f - machine.enemy.phase))
             {

@@ -1,4 +1,7 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace DaneF
 {
@@ -8,32 +11,47 @@ namespace DaneF
         [SerializeField] GameObject playerBody;
         StateMachine stateMachine;
         [SerializeField] Animator animator;
+        [SerializeField] GameObject collisionHead;
+        [SerializeField] GameObject collisionShoulders;
+        [SerializeField] GameObject collisionLaser;
+        [SerializeField] GameObject collisionRoar;
+        GameManager gameManager;
 
         [Header("Boss Variables")]
-        [SerializeField] float bossHealth = 60.0f;
-        [SerializeField] float bossMoveSpeed = 5.0f;
+        public float bossHealth = 60.0f;
+        public float bossMoveSpeed = 5.0f;
         public float bossRotationSpeed = 5.0f;
-
+        public bool isDead = false;
         public float countdown = 10.0f;
         public int rng = 0;
+        private float iframes = 0.5f;
 
         public float playerDistance { get; private set; }
         public Vector3 playerDirection { get; private set; }
         public bool ultimateToken { get; private set; }
         public float phase { get; private set; }
-        private float maxBossHealth;
+        public float maxBossHealth { get; private set; }
         public float maxRotationSpeed { get; private set; }
+        public float maxSpeed { get; private set; }
         private float bossDefense = 50.0f;
+        public UnityEvent ShareDamage;
+        public UnityEvent ActivateLaser;
 
         //Animation Booleans
-        bool isIdle = true;
-        bool isChase = false;
-        bool isBite = false;
-        bool isLaser = false;
-        bool isShockwave = false;
-        bool isRush = false;
-        bool isFire = false;
-        bool isDie = false;
+        private bool isIdle = true;
+        private bool isChase = false;
+        private bool isBite = false;
+        private bool isLaser = false;
+        private bool isShockwave = false;
+        private bool isRush = false;
+        private bool isFire = false;
+        private bool isDie = false;
+
+        [Header("Collision Checkers")]
+        public bool collisionHeadActive = false;
+        public bool collisionShouldersActive = false;
+        public bool collisionLaserActive = false;
+        public bool collisionRoarActive = false;
 
         void Start()
         {
@@ -43,14 +61,19 @@ namespace DaneF
             phase = 0.0f;
             maxBossHealth = bossHealth;
             maxRotationSpeed = bossRotationSpeed;
+            maxSpeed = bossMoveSpeed;
         }
 
         void Update()
         {
+            if (isDead) 
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
+            }
             playerDistance = Vector3.Distance(transform.position, playerBody.transform.position);
             playerDirection = (playerBody.transform.position - transform.position).normalized;
             //Debug.Log("Player Distance: " + playerDistance);
-
+            iframes -= Time.deltaTime;
             stateMachine.Update();
         }
 
@@ -70,8 +93,15 @@ namespace DaneF
             rng = Random.Range(0, 2);
             return rng;
         }
-        public void getHit() 
+        public void getHit()
         {
+            if (iframes <= 0)
+            {
+                iframes = 0.5f;
+                Debug.Log("hit");
+                bossHealth -= 2;
+                ShareDamage?.Invoke();
+            }
 
             if ((bossHealth / maxBossHealth) * 100 <= 20) 
             {
@@ -81,6 +111,11 @@ namespace DaneF
             {
                 phase = 1.0f;
             }
+        }
+
+        public void StartLaser() 
+        {
+            ActivateLaser?.Invoke();
         }
 
         #region Animations
@@ -150,8 +185,8 @@ namespace DaneF
             animator.SetBool("isChase", false);
             animator.SetBool("isBite", false);
             animator.SetBool("isLaser", false);
-            animator.SetBool("isShockwave", true);
-            animator.SetBool("isRush", false);
+            animator.SetBool("isShockwave", false);
+            animator.SetBool("isRush", true);
             animator.SetBool("isFire", false);
             animator.SetBool("isDie", false);
         }

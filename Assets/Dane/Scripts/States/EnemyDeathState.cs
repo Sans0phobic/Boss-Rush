@@ -4,7 +4,6 @@ namespace DaneF
 {
     public class EnemyDeathState : States
     {
-        GameManager gameManager;
         public EnemyDeathState(StateMachine m) : base(m)
         {
             machine = m;
@@ -22,7 +21,7 @@ namespace DaneF
             Debug.Log("Death State");
             if (elapsedTime >= 5.0f) 
             {
-                gameManager.GoToNextLevel();
+                machine.enemy.isDead = true;
             }
         }
 

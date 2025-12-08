@@ -19,6 +19,13 @@ namespace DaneF
         {
             base.OnUpdate();
             Debug.Log("Charge State");
+            machine.enemy.lookAtPlayer();
+            if (elapsedTime > 1.11f && elapsedTime < 1.41f)
+            {
+                machine.enemy.bossMoveSpeed = 7.0f;
+                machine.enemy.chasePlayer();
+            }
+
             if (elapsedTime > 3.08f)
             {
                 machine.ChangeState(new EnemyIdleState(machine));
@@ -28,6 +35,7 @@ namespace DaneF
         public override void OnExit()
         {
             base.OnExit();
+            machine.enemy.bossMoveSpeed = machine.enemy.maxSpeed;
         }
 
     }

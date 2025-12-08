@@ -19,8 +19,8 @@ namespace DaneF
         {
             base.OnUpdate();
             Debug.Log("Chase State");
-            machine.enemy.chasePlayer();
             machine.enemy.lookAtPlayer();
+            machine.enemy.chasePlayer();
             if (machine.enemy.playerDistance <= 15.0f && elapsedTime > 0.8f) 
             {
                 machine.ChangeState(new EnemyIdleState(machine));
