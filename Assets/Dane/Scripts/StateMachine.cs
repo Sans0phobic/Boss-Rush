@@ -15,13 +15,12 @@ namespace DaneF
 
         public void Update() 
         {
-            currentState.OnUpdate();
+            currentState?.OnUpdate();
         }
 
         public void ChangeState(States newState) 
         {
-            if(currentState != null)
-                currentState.OnExit();
+            currentState?.OnExit();
 
             currentState = newState;
 

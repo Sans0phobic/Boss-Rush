@@ -15,7 +15,6 @@ namespace DaneF
         public virtual void OnEnter() 
         {
             Debug.Log("Entered State");
-            elapsedTime = 0.0f;
         }
 
         public virtual void OnUpdate() 
