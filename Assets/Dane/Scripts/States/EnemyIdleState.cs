@@ -17,42 +17,40 @@ namespace DaneF
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Debug.Log("Idle");
+            Debug.Log("Idle State | " + elapsedTime);
 
             if (elapsedTime >= (2.5f - machine.enemy.phase))
             {
-                if (machine.enemy.playerDistance <= 8)
+                if (machine.enemy.playerDistance <= 8.0f)
                 {
-                    if (elapsedTime >= (10.0 - machine.enemy.phase))
+                    if (elapsedTime >= (7.0f - machine.enemy.phase))
                     {
-                        Debug.Log("EnemyShockwaveState");
                         machine.ChangeState(new EnemyShockwaveState(machine));
                     }
                 }
                 //Boss should CLAW (technically bite) at 15m
-                if (machine.enemy.playerDistance > 8 && machine.enemy.playerDistance <= 15)
+                if (machine.enemy.playerDistance > 8.0f && machine.enemy.playerDistance <= 15.0f)
                 {
-                    Debug.Log("EnemySwipeState");
-                    machine.enemy.countdown = 10.0f;
+                    machine.ChangeState(new EnemySwipeState(machine));
                 }
                 //Boss should CHASE at 15 - 25m
-                if (machine.enemy.playerDistance > 15 && machine.enemy.playerDistance <= 25)
+                if (machine.enemy.playerDistance > 15.0f && machine.enemy.playerDistance <= 25.0f)
                 {
-                    Debug.Log("EnemyChaseState");
+                    machine.ChangeState(new EnemyChaseState(machine));
                 }
                 //Boss should fire LASER in phase 1, or fire LASER/CHARGE at 25m in phase 2
-                if (machine.enemy.playerDistance > 25 && machine.enemy.phase == 1.0f)
+                if (machine.enemy.playerDistance > 25.0f && machine.enemy.phase == 0.0f)
                 {
-
+                    machine.ChangeState(new EnemyLaserState(machine));
                 }
                 else 
                 {
                     machine.enemy.randomNumber(); //randomly swaps rng between 0 & 1
 
                     if (machine.enemy.rng == 0)
-                        Debug.Log("EnemyLaserState");
+                        machine.ChangeState(new EnemyLaserState(machine));
                     if (machine.enemy.rng == 1)
-                        Debug.Log("EnemyChargeState");
+                        machine.ChangeState(new EnemyChargeState(machine));
                 }
             }
         }

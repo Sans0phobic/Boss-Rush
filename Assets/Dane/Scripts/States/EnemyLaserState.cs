@@ -17,7 +17,7 @@ namespace DaneF
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Debug.Log("Laser");
+            Debug.Log("Laser State");
             if (elapsedTime > 2.38f && machine.enemy.ultimateToken) 
             {
                 machine.ChangeState(new EnemyFireState(machine));

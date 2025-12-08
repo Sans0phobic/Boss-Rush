@@ -17,7 +17,7 @@ namespace DaneF
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Debug.Log("UltimateState");
+            Debug.Log("Ultimate State");
             if (elapsedTime > 1.32f)
             {
                 machine.ChangeState(new EnemyIdleState(machine));

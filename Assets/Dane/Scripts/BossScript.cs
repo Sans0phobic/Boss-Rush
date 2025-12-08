@@ -6,6 +6,7 @@ namespace DaneF
     {
         [Header("References")]
         [SerializeField] GameObject playerBody;
+        StateMachine stateMachine;
 
         [Header("Boss Variables")]
         [SerializeField] float bossHealth = 60.0f;
@@ -24,6 +25,8 @@ namespace DaneF
 
         void Start()
         {
+            stateMachine = new StateMachine(this);
+            stateMachine.ChangeState(new EnemyIdleState(stateMachine));
             ultimateToken = false;
             phase = 0.0f;
             maxBossHealth = bossHealth;
@@ -34,41 +37,8 @@ namespace DaneF
             playerDistance = Vector3.Distance(transform.position, playerBody.transform.position);
             playerDirection = (playerBody.transform.position - transform.position).normalized;
             Debug.Log("Player Distance: " + playerDistance);
-            //lookAtPlayer();
 
-            //Boss should use FIRE PILLAR attack the next time they idle & are at 5% health or less
-            //if(health <= 5%) {FIRE PILLAR}
-            //Player melee range - 8m - Should ROAR here after a few seconds
-            if (playerDistance <= 8)
-            {
-                //Start timer 10 second timer using the 'countdown' variable
-                countdown -= Time.deltaTime;
-                if (countdown <= 0) 
-                {
-                    Debug.Log("EnemyShockwaveState");
-                }
-            }
-            //Boss should CLAW (technically bite) at 15m
-            if (playerDistance > 8 && playerDistance <= 15) 
-            {
-                Debug.Log("EnemySwipeState");
-                countdown = 10.0f;
-            }
-            //Boss should CHASE at 15 - 25m
-            if (playerDistance > 15 && playerDistance <= 25)
-            {
-                Debug.Log("EnemyChaseState");
-            }
-            //Boss should fire LASER in phase 1, or fire LASER/CHARGE at 25m in phase 2
-            if (playerDistance > 25)
-            {
-                if (rng == 0)
-                    Debug.Log("EnemyLaserState");
-                if (rng == 1)
-                    Debug.Log("EnemyChargeState");
-
-                //if in phase two, rng = Random.Range(0, 2);
-            }
+            stateMachine.Update();
         }
 
         public void lookAtPlayer() 

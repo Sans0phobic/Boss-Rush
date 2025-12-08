@@ -17,7 +17,7 @@ namespace DaneF
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Debug.Log("Swipe");
+            Debug.Log("Swipe State");
             if (elapsedTime > 1.1f) 
             {
                 machine.ChangeState(new EnemyIdleState(machine));

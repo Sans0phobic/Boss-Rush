@@ -18,7 +18,7 @@ namespace DaneF
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Debug.Log("Dead");
+            Debug.Log("Death State");
             if (elapsedTime >= 5.0f) 
             {
                 gameManager.GoToNextLevel();

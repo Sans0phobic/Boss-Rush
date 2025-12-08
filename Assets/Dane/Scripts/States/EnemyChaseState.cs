@@ -17,7 +17,7 @@ namespace DaneF
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Debug.Log("Chase");
+            Debug.Log("Chase State");
             machine.enemy.chasePlayer();
             machine.enemy.lookAtPlayer();
             if (machine.enemy.playerDistance <= 15.0f && elapsedTime > 0.8f) 
