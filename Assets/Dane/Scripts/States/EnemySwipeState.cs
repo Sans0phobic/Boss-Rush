@@ -17,7 +17,11 @@ namespace DaneF
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Debug.Log("Shockwave");
+            Debug.Log("Swipe");
+            if (elapsedTime > 1.1f) 
+            {
+                machine.ChangeState(new EnemyIdleState(machine));
+            }
         }
 
         public override void OnExit()

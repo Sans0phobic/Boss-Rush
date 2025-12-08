@@ -11,47 +11,54 @@ namespace DaneF
         [SerializeField] float bossHealth = 60.0f;
         [SerializeField] float bossSpeed = 5.0f;
 
-        private float playerDistance;
+        public float playerDistance { get; private set; }
+        public bool ultimateToken { get; private set; }
         private int rng = 0;
-        private float countdown;
+        private float countdown = 10.0f;
+        private int phase = 1;
 
         void Start()
         {
-
+            ultimateToken = false;
         }
 
         void Update()
         {
             playerDistance = Vector3.Distance(transform.position, playerBody.transform.position);
             Debug.Log("Player Distance: " + playerDistance);
-            //Player melee range - 7m - Should ROAR here after a few seconds
-            //Boss should CHASE at 8 - 29m
-            //Boss should fire LASER or CHARGE at 30m
-            //Boss should CLAW (technically bite) at 15m
+            
             //Boss should use FIRE PILLAR attack the next time they idle & are at 5% health or less
-
-            if (playerDistance <= 7)
+            //if(health <= 5%) {FIRE PILLAR}
+            //Player melee range - 8m - Should ROAR here after a few seconds
+            if (playerDistance <= 8)
             {
-                Debug.Log("EnemyShockwaveState");
                 //Start timer 10 second timer using the 'countdown' variable
-                //countdown -= Time.deltaTime;
-                //if(countdown <= 0) {shockwave}
+                countdown -= Time.deltaTime;
+                if (countdown <= 0) 
+                {
+                    Debug.Log("EnemyShockwaveState");
+                }
             }
-            if (playerDistance > 7 && playerDistance <= 15) 
+            //Boss should CLAW (technically bite) at 15m
+            if (playerDistance > 8 && playerDistance <= 15) 
             {
                 Debug.Log("EnemySwipeState");
-                //countdown = 10.0f;
+                countdown = 10.0f;
             }
-            if (playerDistance >15 && playerDistance <= 29)
+            //Boss should CHASE at 8 - 15m
+            if (playerDistance > 15 && playerDistance <= 25)
             {
                 Debug.Log("EnemyChaseState");
             }
-            if (playerDistance >= 30)
+            //Boss should fire LASER in phase 1, or fire LASER/CHARGE at 25m in phase 2
+            if (playerDistance > 25)
             {
                 if (rng == 0)
                     Debug.Log("EnemyLaserState");
                 if (rng == 1)
                     Debug.Log("EnemyChargeState");
+
+                //if in phase two, rng = Random.Range(0, 2);
             }
         }
     }

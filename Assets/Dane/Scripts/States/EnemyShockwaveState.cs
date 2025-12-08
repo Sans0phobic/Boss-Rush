@@ -18,6 +18,10 @@ namespace DaneF
         {
             base.OnUpdate();
             Debug.Log("Shockwave");
+            if (elapsedTime > 3.28f)
+            {
+                machine.ChangeState(new EnemyIdleState(machine));
+            }
         }
 
         public override void OnExit()

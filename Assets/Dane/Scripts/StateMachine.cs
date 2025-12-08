@@ -6,9 +6,9 @@ namespace DaneF
     public class StateMachine
     {
         States currentState;
-        public EnemyTest enemy; //mutator & accessor later
+        public BossScript enemy { get; private set; } //mutator & accessor later
 
-        public StateMachine(EnemyTest enemy) 
+        public StateMachine(BossScript enemy) 
         {
             this.enemy = enemy;
         }

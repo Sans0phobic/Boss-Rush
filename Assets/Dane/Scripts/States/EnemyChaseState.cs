@@ -18,6 +18,10 @@ namespace DaneF
         {
             base.OnUpdate();
             Debug.Log("Chase");
+            if (machine.enemy.playerDistance <= 15 && elapsedTime > 0.8f) 
+            {
+                machine.ChangeState(new EnemyIdleState(machine));
+            }
         }
 
         public override void OnExit()
