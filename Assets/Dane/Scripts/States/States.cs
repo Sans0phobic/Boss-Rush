@@ -14,7 +14,7 @@ namespace DaneF
 
         public virtual void OnEnter() 
         {
-            Debug.Log("Entered");
+            //Debug.Log("Entered");
         }
 
         public virtual void OnUpdate() 
@@ -24,7 +24,7 @@ namespace DaneF
 
         public virtual void OnExit() 
         {
-            Debug.Log("Exited");
+            //Debug.Log("Exited");
         }
 
     }

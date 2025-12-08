@@ -36,7 +36,7 @@ namespace DaneF
         {
             playerDistance = Vector3.Distance(transform.position, playerBody.transform.position);
             playerDirection = (playerBody.transform.position - transform.position).normalized;
-            Debug.Log("Player Distance: " + playerDistance);
+            //Debug.Log("Player Distance: " + playerDistance);
 
             stateMachine.Update();
         }
