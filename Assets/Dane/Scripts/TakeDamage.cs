@@ -1,16 +1,18 @@
-using DaneF;
 using UnityEngine;
 
-public class TakeDamage : MonoBehaviour
+namespace DaneF
 {
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject ground;
-    BossScript bossScript;
-    private void OnCollisionEnter(Collision collision)
+    public class TakeDamage : MonoBehaviour
     {
-        if (collision.gameObject != player && collision.gameObject != ground) 
+        [SerializeField] GameObject player;
+        [SerializeField] GameObject ground;
+        BossScript bossScript;
+        private void OnCollisionEnter(Collision collision)
         {
-            bossScript.getHit();
+            if (collision.gameObject != player && collision.gameObject != ground)
+            {
+                bossScript.getHit();
+            }
         }
     }
 }

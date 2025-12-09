@@ -15,7 +15,7 @@ namespace DaneF
         [SerializeField] GameObject collisionShoulders;
         [SerializeField] GameObject collisionLaser;
         [SerializeField] GameObject collisionRoar;
-        GameManager gameManager;
+        //GameManager gameManager;
 
         [Header("Boss Variables")]
         public float bossHealth = 60.0f;
@@ -26,6 +26,7 @@ namespace DaneF
         public int rng = 0;
         private float iframes = 0.5f;
 
+        #region Misc. Variables
         public float playerDistance { get; private set; }
         public Vector3 playerDirection { get; private set; }
         public bool ultimateToken { get; private set; }
@@ -33,11 +34,20 @@ namespace DaneF
         public float maxBossHealth { get; private set; }
         public float maxRotationSpeed { get; private set; }
         public float maxSpeed { get; private set; }
-        private float bossDefense = 50.0f;
+        private bool ultChecker = true;
+        #endregion
+
+        #region Unity Events
         public UnityEvent ShareDamage;
         public UnityEvent ActivateLaser;
+        public UnityEvent ActivateRoar;
+        public UnityEvent ActivateSwipe;
+        public UnityEvent ActivateCharge;
+        public UnityEvent ActivateUlt;
+        public UnityEvent ActivateUltShock;
+        #endregion
 
-        //Animation Booleans
+        #region Animation Booleans
         private bool isIdle = true;
         private bool isChase = false;
         private bool isBite = false;
@@ -46,6 +56,7 @@ namespace DaneF
         private bool isRush = false;
         private bool isFire = false;
         private bool isDie = false;
+        #endregion
 
         [Header("Collision Checkers")]
         public bool collisionHeadActive = false;
@@ -68,6 +79,7 @@ namespace DaneF
         {
             if (isDead) 
             {
+                //I added this becuase I'm dumb & couldn't get the connection to the GameManager working
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
             }
             playerDistance = Vector3.Distance(transform.position, playerBody.transform.position);
@@ -93,6 +105,7 @@ namespace DaneF
             rng = Random.Range(0, 2);
             return rng;
         }
+
         public void getHit()
         {
             if (iframes <= 0)
@@ -103,20 +116,55 @@ namespace DaneF
                 ShareDamage?.Invoke();
             }
 
-            if ((bossHealth / maxBossHealth) * 100 <= 20) 
+            if ((bossHealth / maxBossHealth) * 100 <= 30) 
             {
                 phase = 2.0f;
+                Debug.Log("Boss Phase 3");
+                if (ultChecker) 
+                {
+                    ultChecker = false;
+                    ultimateToken = true;
+                }
             }
             else if (bossHealth <= maxBossHealth / 2)
             {
                 phase = 1.0f;
+                Debug.Log("Boss Phase 2");
             }
         }
 
+        #region Event Handlers
         public void StartLaser() 
         {
             ActivateLaser?.Invoke();
         }
+
+        public void StartRoar() 
+        {
+            ActivateRoar?.Invoke();
+        }
+
+        public void StartBite() 
+        {
+            ActivateSwipe?.Invoke();
+        }
+
+        public void StartCharge() 
+        {
+            ActivateCharge?.Invoke();
+        }
+
+        public void StartUltimate() 
+        {
+            ActivateUlt?.Invoke();
+            ultimateToken = false;
+        }
+
+        public void StartUltimateShock() 
+        {
+            ActivateUltShock?.Invoke();
+        }
+        #endregion
 
         #region Animations
         public void AnimateIdle() 

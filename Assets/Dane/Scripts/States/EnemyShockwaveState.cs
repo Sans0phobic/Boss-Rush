@@ -13,6 +13,7 @@ namespace DaneF
         {
             base.OnEnter();
             machine.enemy.AnimateShockwave();
+            machine.enemy.StartRoar();
         }
 
         public override void OnUpdate()

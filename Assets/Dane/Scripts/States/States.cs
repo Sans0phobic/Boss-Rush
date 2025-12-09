@@ -5,7 +5,7 @@ namespace DaneF
     public class States
     {
         public StateMachine machine;
-        public float elapsedTime; //Switch with accessors & mutators
+        public float elapsedTime { get; private set; }
 
         public States(StateMachine m) 
         {

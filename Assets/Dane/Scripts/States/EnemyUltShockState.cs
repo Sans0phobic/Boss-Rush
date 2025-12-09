@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace DaneF
 {
-    public class EnemyFireState : States
+    public class EnemyUltShockState : States
     {
-        public EnemyFireState(StateMachine m) : base(m)
+        public EnemyUltShockState(StateMachine m) : base(m)
         {
             machine = m;
         }
@@ -12,24 +12,19 @@ namespace DaneF
         public override void OnEnter()
         {
             base.OnEnter();
-            machine.enemy.AnimateFire();
-            machine.enemy.StartUltimate();
+            machine.enemy.AnimateShockwave();
+            machine.enemy.StartUltimateShock();
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
-            Debug.Log("Ultimate State");
-            if (elapsedTime > 1.32f)
-            {
-                machine.ChangeState(new EnemyIdleState(machine));
-            }
+            Debug.Log("UltShockState");
         }
 
         public override void OnExit()
         {
             base.OnExit();
         }
-
     }
 }
