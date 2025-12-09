@@ -10,7 +10,7 @@ namespace DaneF
         void Start()
         {
             sphere = GetComponent<CapsuleCollider>();
-            sphere.radius = 0.5f;
+            sphere.radius = 0.1f;
         }
 
         public void FuncBite()
@@ -23,7 +23,7 @@ namespace DaneF
             yield return new WaitForSeconds(0.6f);
             sphere.radius = 1.1f;
             yield return new WaitForSeconds(0.2f);
-            sphere.radius = 0.5f;
+            sphere.radius = 0.1f;
         }
     }
 }

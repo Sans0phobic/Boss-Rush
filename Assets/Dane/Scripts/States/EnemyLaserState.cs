@@ -21,11 +21,12 @@ namespace DaneF
         {
             base.OnUpdate();
             Debug.Log("Laser State");
-            if (elapsedTime > 2.38f && machine.enemy.ultimateToken) 
+            if (elapsedTime > 2.9f && machine.enemy.ultimateToken) 
             {
+                machine.enemy.ultimateToken = false;
                 machine.ChangeState(new EnemyFireState(machine));
             }
-            if (elapsedTime > 2.9f)
+            else if (elapsedTime > 2.9f)
             {
                 machine.ChangeState(new EnemyIdleState(machine));
             }

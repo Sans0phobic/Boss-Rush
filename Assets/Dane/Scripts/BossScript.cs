@@ -7,6 +7,7 @@ namespace DaneF
 {
     public class BossScript : MonoBehaviour
     {
+        #region References
         [Header("References")]
         [SerializeField] GameObject playerBody;
         StateMachine stateMachine;
@@ -16,7 +17,9 @@ namespace DaneF
         [SerializeField] GameObject collisionLaser;
         [SerializeField] GameObject collisionRoar;
         //GameManager gameManager;
+        #endregion
 
+        #region Boss Variables
         [Header("Boss Variables")]
         public float bossHealth = 60.0f;
         public float bossMoveSpeed = 5.0f;
@@ -25,11 +28,12 @@ namespace DaneF
         public float countdown = 10.0f;
         public int rng = 0;
         private float iframes = 0.5f;
+        public bool ultimateToken = false;
+        #endregion
 
         #region Misc. Variables
         public float playerDistance { get; private set; }
         public Vector3 playerDirection { get; private set; }
-        public bool ultimateToken { get; private set; }
         public float phase { get; private set; }
         public float maxBossHealth { get; private set; }
         public float maxRotationSpeed { get; private set; }
@@ -39,6 +43,7 @@ namespace DaneF
 
         #region Unity Events
         public UnityEvent ShareDamage;
+        public UnityEvent ShareDead;
         public UnityEvent ActivateLaser;
         public UnityEvent ActivateRoar;
         public UnityEvent ActivateSwipe;
@@ -58,17 +63,18 @@ namespace DaneF
         private bool isDie = false;
         #endregion
 
+        #region Collision Checkers
         [Header("Collision Checkers")]
         public bool collisionHeadActive = false;
         public bool collisionShouldersActive = false;
         public bool collisionLaserActive = false;
         public bool collisionRoarActive = false;
+        #endregion
 
         void Start()
         {
             stateMachine = new StateMachine(this);
             stateMachine.ChangeState(new EnemyIdleState(stateMachine));
-            ultimateToken = false;
             phase = 0.0f;
             maxBossHealth = bossHealth;
             maxRotationSpeed = bossRotationSpeed;
@@ -122,6 +128,7 @@ namespace DaneF
                 Debug.Log("Boss Phase 3");
                 if (ultChecker) 
                 {
+                    Debug.Log("ultChecked");
                     ultChecker = false;
                     ultimateToken = true;
                 }
@@ -134,6 +141,11 @@ namespace DaneF
         }
 
         #region Event Handlers
+        public void TriggerOnDeath() 
+        {
+            ShareDead?.Invoke();
+        }
+
         public void StartLaser() 
         {
             ActivateLaser?.Invoke();
@@ -157,7 +169,6 @@ namespace DaneF
         public void StartUltimate() 
         {
             ActivateUlt?.Invoke();
-            ultimateToken = false;
         }
 
         public void StartUltimateShock() 

@@ -25,7 +25,7 @@ namespace DaneF
             {
                 machine.ChangeState(new EnemyIdleState(machine));
             }
-            if (machine.enemy.playerDistance > 25.0f) 
+            if (machine.enemy.playerDistance > 25.0f && elapsedTime > 0.8f) 
             {
                 machine.ChangeState(new EnemyIdleState(machine));
             }

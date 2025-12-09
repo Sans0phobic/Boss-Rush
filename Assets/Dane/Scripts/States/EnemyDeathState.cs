@@ -22,6 +22,7 @@ namespace DaneF
             if (elapsedTime >= 5.0f) 
             {
                 machine.enemy.isDead = true;
+                machine.enemy.TriggerOnDeath();
             }
         }
 

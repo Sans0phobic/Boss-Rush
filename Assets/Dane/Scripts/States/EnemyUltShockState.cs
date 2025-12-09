@@ -20,6 +20,10 @@ namespace DaneF
         {
             base.OnUpdate();
             Debug.Log("UltShockState");
+            if (elapsedTime >= 3.28f)
+            {
+                machine.ChangeState(new EnemyLaserState(machine));
+            }
         }
 
         public override void OnExit()
